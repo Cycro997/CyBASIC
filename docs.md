@@ -50,8 +50,23 @@ Returns the product of L and R
 ```L / R```\
 Returns the quotient of L and R
 #### `^`
-```L^ R```\
+```L ^ R```\
 Returns L to the Rth power
+#### `==`
+```L == R```\
+Returns 1 if L is equal to R else 0
+#### `<`
+```L < R```\
+Returns 1 if L is less than R else 0
+#### `>`
+```L > R```\
+Returns 1 if L is greater than R else 0
+#### `<=`
+```L <= R```\
+Returns 1 if L is less than or equal to R else 0
+#### `>=`
+```L >= R```\
+Returns 1 if L is greater than or equal to R else 0
 ### Unary
 #### `+`
 ```+O```\
