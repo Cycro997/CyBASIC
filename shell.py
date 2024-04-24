@@ -17,5 +17,5 @@ while 1:
     if error is not None:
         print(error.as_string(), file=stderr)
         sleep(.5)
-    else:
+    elif result:
         print(result)

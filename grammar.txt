@@ -1,7 +1,7 @@
-expr       : KEYWORD:VAR IDENTIFIER EQ expr
-           : comp-expr ((KEYWORD:AND|KEYWORD|OR) comp-expr)
+expr       : KEYWORD:var IDENTIFIER EQ expr
+           : comp-expr ((KEYWORD:and|KEYWORD|or) comp-expr)
 
-comp-expr  : NOT comp-expr
+comp-expr  : KEYWORD:not comp-expr
            : arith-expr ((EE|NE|LT|GT|LTE|GTE) arith-expr)*
 
 arith-expr : term ((PLUS|MINUS) term)*
@@ -10,7 +10,31 @@ term       : factor ((MUL|DIV) factor)*
 
 factor     : (PLUS|MINUS) power
 
-power      : atom (POW factor)*
+power      : call (POW factor)*
 
-atom       : INT|FLOAT|IDENTIFIER
+call       : subscript (LPAREN (expr (COMMA expr)*)? RPAREN)?
+
+subscript  : atom (LSQUARE expr RSQUARE)
+
+atom       : INT|FLOAT|STRING|IDENTIFIER
            : LPAREN expr RPAREN
+           : list-expr
+           : if-expr
+           : for-expr
+           : while-expr
+           : func-def
+
+list-expr  : LSQUARE (expr (COMMA expr)*)? RSQUARE
+
+if-expr    : KEYWORD:if expr KEYWORD:then expr
+           : (KEYWORD:elif expr KEYWORD:then expr)*
+           : (KEYWORD:else expr)?
+
+for-expr   : KEYWORD:for IDENTIFIER EQ expr KEYWORD:to expr
+             (KEYWORD:step expr)? KEYWORD:then expr
+
+while-expr : KEYWORD:while expr KEYWORD:then expr
+
+func-def   : KEYWORD:func IDENTIFIER?
+             LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
+             ARROW expr
