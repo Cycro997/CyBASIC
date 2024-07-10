@@ -1,8 +1,12 @@
+statements : NEWLINE* expr (NEWLINE+ expr)* NEWLINE*
+
 expr       : KEYWORD:var IDENTIFIER EQ expr
            : comp-expr ((KEYWORD:and|KEYWORD|or) comp-expr)
 
 comp-expr  : KEYWORD:not comp-expr
-           : arith-expr ((EE|NE|LT|GT|LTE|GTE) arith-expr)*
+           : bitwiseexpr ((EE|NE|LT|GT|LTE|GTE) arith-expr)*
+
+bitwiseexpr: arith-expr ((CARET|AMPER|BAR) arith-expr)*
 
 arith-expr : term ((PLUS|MINUS) term)*
 
@@ -14,7 +18,11 @@ power      : call (POW factor)*
 
 call       : subscript (LPAREN (expr (COMMA expr)*)? RPAREN)?
 
-subscript  : atom (LSQUARE expr RSQUARE)
+subscript  : superscript (LSQUARE expr RSQUARE)?
+
+superscript: attr (LBRACE expr RBRACE)?
+
+attr       : atom (ATTR)?
 
 atom       : INT|FLOAT|STRING|IDENTIFIER
            : LPAREN expr RPAREN
@@ -26,15 +34,27 @@ atom       : INT|FLOAT|STRING|IDENTIFIER
 
 list-expr  : LSQUARE (expr (COMMA expr)*)? RSQUARE
 
-if-expr    : KEYWORD:if expr KEYWORD:then expr
-           : (KEYWORD:elif expr KEYWORD:then expr)*
-           : (KEYWORD:else expr)?
+if-expr    : KEYWORD:if expr KEYWORD:then
+             (expr if-expr-b|if-expr-c?)
+             | (NEWLINE statements KEYWORD:end if-expr-b|if-expr-c)
+
+if-expr-b  : KEYWORD:elif expr KEYWORD:then
+             (expr if-expr-b|if-expr-c?)
+             | (NEWLINE statements KEYWORD:end if-expr-b|if-expr-c)
+
+if-expr-c  : KEYWORD:else
+             expr
+             | (NEWLINE statements KEYWORD:end)
 
 for-expr   : KEYWORD:for IDENTIFIER EQ expr KEYWORD:to expr
              (KEYWORD:step expr)? KEYWORD:then expr
+             | (NEWLINE statements KEYWORD:end)
 
 while-expr : KEYWORD:while expr KEYWORD:then expr
+             | (NEWLINE statements KEYWORD:end)
 
 func-def   : KEYWORD:func IDENTIFIER?
              LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
-             ARROW expr
+             (ARROW expr)
+             | (NEWLINE statements KEYWORD:end)
+

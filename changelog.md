@@ -1,22 +1,19 @@
 # PyLang Changelog
-## Version 0.0.2
+## Version 0.0.3
 
 ### Additions
-#### If-statements
-If-statements have been added! Now you can make conditionals!
-#### For-loops
-For-loops have been added.
-#### While-loops
-While-loops have been added as the loop equivalent of if-statements.
-#### Functions
-Functions have been added, improving code quality!
-#### Strings
-Strings have been added meaning you can write text now!
-#### Lists
-Lists have been added, allowing you to store multiple values!
+#### Built-in functions
+These are functions that the language already has, extending code capabilities!
+#### Booleans
+Now you can represent booleans without using numbers!
+#### Null
+A special datatype for null. Null and False are no longer equal.
+### Attributes
+Attributes have been added.
+### Multiple lines
+You can now use **multiple lines** in your code!
 ### Removals
 #### None!
 ### Changes
-#### Built-ins symbol table
-Built-ins have been moved to a new symbol
-table.
+#### Power operator changed
+The power operator has been changed from the caret symbol (^) to 2 asterisks (**)
