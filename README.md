@@ -1,5 +1,4 @@
 # PYLANG
-## v0.0.3 (10/7/2024)
 Python based programming language.\
 Please open docs.md for documentation.\
 For changes, open changelog.md. 
