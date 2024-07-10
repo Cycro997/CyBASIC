@@ -1,6 +1,6 @@
 # CyBASIC
 ## Official documentation for the programming language PyLang
-### Version 0.0.3 (24/4/2024)
+### Version 0.0.3 (10/7/2024)
 
 ## Keywords
 ### `var`
