@@ -1,5 +1,5 @@
 # CyBASIC
-## Official documentation for the programming language PyLang
+## Official documentation for the programming language CyBASIC
 ### Version 0.0.3 (10/7/2024)
 
 ## Keywords
